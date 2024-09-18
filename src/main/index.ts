@@ -55,8 +55,12 @@ async function showOpenDialog() {
 
   const [filePath] = result.filePaths
 
-  const content = await readFile(filePath, { encoding: 'utf-8' })
+  const content = await openFile(filePath)
 
   console.log(result)
   console.log(content)
+}
+
+async function openFile(filePath: string): Promise<string> {
+  return await readFile(filePath, { encoding: 'utf-8' })
 }
