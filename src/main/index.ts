@@ -1,4 +1,5 @@
 import { app, BrowserWindow, dialog } from 'electron'
+import { readFile } from 'fs/promises'
 import { join } from 'path'
 
 const createWindow = () => {
@@ -50,5 +51,12 @@ async function showOpenDialog() {
     filters: [{ name: 'Markdown File', extensions: ['md'] }]
   })
 
+  if (result.canceled) return
+
+  const [filePath] = result.filePaths
+
+  const content = await readFile(filePath, { encoding: 'utf-8' })
+
   console.log(result)
+  console.log(content)
 }
